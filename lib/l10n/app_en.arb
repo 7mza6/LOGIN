@@ -1,0 +1,83 @@
+{
+  "language": "English",
+  "@language": {
+    "description": "The current Language"
+  },
+
+
+  "login": "LOGIN",
+  "@login": {
+    "description": "LoginPage title"
+  },
+
+
+  "email": "Email",
+  "@email": {
+    "description": "email feeld placeholder "
+  },
+
+
+  "password": "Password",
+  "@password": {
+    "description": "password feeld placeholder "
+  },
+
+  "loginMassage": "You have successfully logged in.",
+  "@password": {
+    "description": "login Massage "
+  },
+
+
+  "loginfailed": "Login failed successfully",
+  "@password": {
+    "description": "login Massage "
+  },
+
+  "regesteraitin": "SIGN UP",
+  "@Regesteraitin": {
+    "description": "Registration Page title"
+  },
+
+  "username": "username",
+  "@username": {
+    "description": "username field"
+  },
+
+  "regesteraitinfailed": "Registration failed successfully",
+  "@regesteraitinfailed": {
+    "description": "Username already exists Massage "
+  },
+  "regesteraitinDone": "You have successfully signed up",
+  "@regesteraitinDone": {
+    "description": "You have successfully signed up "
+  },
+
+  "usernameTaken": " Username already exists",
+  "@usernameTaken": {
+    "description": "Username already exists Massage "
+  },
+
+  "close": "close",
+  "@close": {
+    "description": "close button"
+  },
+  "phone": "Phone",
+  "@phone": {
+    "description": "phone placeholder"
+  },
+
+  "enterUsername": "Please enter a username",
+  "@enterUsername": {
+    "description": "Validation: username is required"
+  },
+
+  "enterPassword": "Please enter a password",
+  "@enterPassword": {
+    "description": "Validation: password is required"
+  },
+
+  "shortPassword": "Password must be at least 6 characters long",
+  "@shortPassword": {
+    "description": "Validation: password length"
+  }
+}

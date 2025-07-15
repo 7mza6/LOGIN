@@ -1,0 +1,18 @@
+{
+  "language": "العربية",
+  "login": "تسجيل الدخول",
+  "email": "الايميل",
+  "password": "كلمة المرور",
+  "loginMassage": "تم تسجيل الدخول بنجاح",
+  "loginfailed": "فشل تسجيل الدخول بنجاح",
+  "regesteraitin": "التسجيل",
+  "username" : "اسم المستخدم",
+  "usernameTaken": "اسم لالمستخم هذا موجود بالفعل",
+  "regesteraitinDone": "لقد قمت بالتسجيل بنجاح",
+  "regesteraitinfailed": "فشل التسجيل الدخول بنجاح",
+  "close": "اغلاق",
+  "phone": "الهاتف",
+  "enterUsername": "يرجى إدخال اسم المستخدم",
+  "enterPassword": "يرجى إدخال كلمة المرور",
+  "shortPassword": "يجب أن تكون كلمة المرور 6 أحرف على الأقل"
+}
