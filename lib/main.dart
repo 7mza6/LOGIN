@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:users/user.dart';
-import 'DataBase.dart';
+import 'auth/Repositories/usersLocal.dart';
+import 'auth/Views/LoginPage.dart';
 import 'l10n/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'LoginPage.dart';
 
+import 'auth/models/userModel.dart';
 
 
 void main() {
@@ -46,16 +46,8 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
   }
-
-
-
   @override
   Widget build(BuildContext context) {
-
-
-
-
-
     return MaterialApp(
       supportedLocales: L10n.all,
       locale: _locale, // Use the state variable here
@@ -66,12 +58,10 @@ class _MyAppState extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       theme: ThemeData(
-
       ),
       home: LoginPage(),
 
     );
   }
 }
-
 //MyApp.of(context)?.setLocale(const Locale('ar'))

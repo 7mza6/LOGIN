@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
-import 'package:users/user.dart';
-import 'UserFields.dart';
+import 'package:users/auth/Repositories/userRepository.dart';
+import 'package:users/auth/models/userModel.dart';
+import '../models/UserFields.dart';
 
 
 
@@ -19,7 +19,7 @@ Future<void> _createDatabase(Database db, int version) async {
 }
 
 
-class UserDatabase {
+class UserDatabase extends userRepository {
   static final UserDatabase instance = UserDatabase._internal();
 
   static Database? _database;

@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:users/user.dart';
-import 'DataBase.dart';
-import 'l10n/l10n.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'LoginPage.dart';
 
-ShowDialog({var context, bodyText}){
+ShowDialog({var context, bodyText,bool? swich}){
 
   showDialog<String>(
     context: context,
@@ -26,6 +21,13 @@ ShowDialog({var context, bodyText}){
               },
               child:  Text(AppLocalizations.of(context)!.close),
             ),
+            Visibility(visible: swich ?? false ,
+                child: Switch(
+              value: true,
+              onChanged: (value) {
+
+              },
+            ) ),
           ],
         ),
       ),

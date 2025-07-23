@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:users/user.dart';
-import 'DataBase.dart';
-import 'RegestPage.dart';
-import 'Reusable.dart';
-import 'main.dart';
+import 'package:users/auth/models/userModel.dart';
+import '../Repositories/usersLocal.dart';
+import '../Views/RegestPage.dart';
+import '../Viewmodels/login_view_model.dart';
+import 'package:users/main.dart';
+
+
 
 String lang = 'en';
 
@@ -149,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                             Expanded(
                               flex: 3,
                               child: TextButton(
-                                  onPressed:() => check(),
+                                  onPressed:() => check(context,usernaem.text,pass.text),
                                   child: Container(
                                     child: Text(
                                       AppLocalizations.of(context)!.login,
@@ -179,7 +182,19 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                   )),
                             ),
-
+                            Expanded(
+                              flex: 3,
+                              child: TextButton(
+                                  onPressed:() async {
+                                    await LocalAuth(context,mounted);
+                                  },
+                                  child: Container(
+                                    child: Icon(
+                                      Icons.fingerprint,
+                                      size: 50,
+                                    ),
+                                  )),
+                            ),
                           ],
                         ),
                       ),
@@ -191,23 +206,6 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
     );
-  }
-
-  check() async {
-    user? _user = await userDatabase.readUser(usernaem.text);
-    if(_user == null){
-
-      return ShowDialog(bodyText: AppLocalizations.of(context)!.loginfailed,
-          context: context);
-
-    }
-    if (_user?.password == pass.text) {
-        return ShowDialog(bodyText: AppLocalizations.of(context)!.loginMassage,
-            context: context);
-      } else {
-        return ShowDialog(bodyText: AppLocalizations.of(context)!.loginfailed,
-            context: context);
-      }
   }
 }
 

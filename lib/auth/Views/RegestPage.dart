@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:users/Reusable.dart';
-import 'package:users/user.dart';
-import 'DataBase.dart';
-import 'main.dart';
+import 'package:users/auth/reusable_widgets.dart';
+import '../Repositories/usersLocal.dart';
+import '../Viewmodels/register_view_model.dart';
+import '../models/userModel.dart';
+import '../../main.dart';
 
 String lang = 'en';
 List<user> useres = [];
@@ -17,22 +18,7 @@ class RegestPage extends StatefulWidget {
 
 class _RegestPageState extends State<RegestPage> {
   UserDatabase userDatabase = UserDatabase.instance;
-  getAll() async {
-    userDatabase.readAll().then((value) {
-      setState(() {
-        useres = value;
-      });
-    });
-  }
-
-  void printAllUsers() async {
-    List<user> allUsers = await userDatabase.readAll();
-
-    for (var u in allUsers) {
-      print(
-          'ID: ${u.id}, Username: ${u.username}, Email: ${u.email}, Password: ${u.password} , phone: ${u.phone} ');
-    }
-  }
+  final RegisterViewModel _viewModel = RegisterViewModel();
 
   TextEditingController usernaem = TextEditingController();
   TextEditingController pass = TextEditingController();
@@ -54,7 +40,7 @@ class _RegestPageState extends State<RegestPage> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(2),
                 border:
-                    Border.all(width: 1, color: Colors.white.withOpacity(0.8)),
+                Border.all(width: 1, color: Colors.white.withOpacity(0.8)),
                 color: Colors.white.withOpacity(0.1),
               ),
               width: 40,
@@ -64,11 +50,10 @@ class _RegestPageState extends State<RegestPage> {
                   String x = lang == 'ar' ? 'en' : 'ar';
                   lang = x;
 
-                   MyApp.of(context)?.setLocale(Locale(x));
+                  MyApp.of(context)?.setLocale(Locale(x));
                   await Future.delayed(Duration(milliseconds: 20), () {
                     _formKey.currentState!.validate();
                   });
-
                 },
                 child: Text(
                   lang == 'ar' ? 'EN' : 'AR',
@@ -133,7 +118,8 @@ class _RegestPageState extends State<RegestPage> {
                                       controller: usernaem,
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
-                                          return AppLocalizations.of(context)!.enterUsername;
+                                          return AppLocalizations.of(context)!
+                                              .enterUsername;
                                         }
                                         return null;
                                       },
@@ -141,7 +127,8 @@ class _RegestPageState extends State<RegestPage> {
                                           fillColor: Colors.white,
                                           border: OutlineInputBorder(),
                                           labelText:
-                                              AppLocalizations.of(context)!.username),
+                                          AppLocalizations.of(context)!
+                                              .username),
                                     ),
                                   ),
                                   SizedBox(height: 20),
@@ -152,12 +139,15 @@ class _RegestPageState extends State<RegestPage> {
                                           fillColor: Colors.white,
                                           border: OutlineInputBorder(),
                                           labelText:
-                                              AppLocalizations.of(context)!.password),
+                                          AppLocalizations.of(context)!
+                                              .password),
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
-                                          return AppLocalizations.of(context)!.enterPassword;
+                                          return AppLocalizations.of(context)!
+                                              .enterPassword;
                                         } else if (value.length < 6) {
-                                          return AppLocalizations.of(context)!.shortPassword;
+                                          return AppLocalizations.of(context)!
+                                              .shortPassword;
                                         }
                                         return null;
                                       },
@@ -170,7 +160,8 @@ class _RegestPageState extends State<RegestPage> {
                                       decoration: InputDecoration(
                                           fillColor: Colors.white,
                                           border: OutlineInputBorder(),
-                                          labelText: AppLocalizations.of(context)!.email),
+                                          labelText: AppLocalizations.of(
+                                              context)!.email),
                                     ),
                                   ),
                                   SizedBox(height: 20),
@@ -180,7 +171,8 @@ class _RegestPageState extends State<RegestPage> {
                                       decoration: InputDecoration(
                                           fillColor: Colors.white,
                                           border: OutlineInputBorder(),
-                                          labelText: AppLocalizations.of(context)!.phone),
+                                          labelText: AppLocalizations.of(
+                                              context)!.phone),
                                     ),
 
                                   ),
@@ -194,15 +186,22 @@ class _RegestPageState extends State<RegestPage> {
                                 onPressed: () async {
                                   if (_formKey.currentState!.validate()) {
                                     user? existingUser =
-                                        await userDatabase.readUser(usernaem.text);
+                                    await userDatabase.readUser(usernaem.text);
                                     if (existingUser != null) {
-                                      printAllUsers();
+                                      _viewModel.printAllUsers();
                                       ShowDialog(
                                           bodyText:
-                                              AppLocalizations.of(context)!.usernameTaken,
+                                          AppLocalizations.of(context)!
+                                              .usernameTaken,
                                           context: context);
                                     } else {
-                                      add();
+                                      await _viewModel.registerUserAndShowDialog(
+                                        context: context,
+                                        username: usernaem.text,
+                                        password: pass.text,
+                                        email: email.text,
+                                        phone: phone.text,
+                                      );
                                     }
                                   }
                                 },
@@ -227,37 +226,5 @@ class _RegestPageState extends State<RegestPage> {
         ),
       ),
     );
-  }
-
-  add() async {
-    // Fetch all users first
-    await getAll();
-
-    int newId = 1;
-    if (useres.isNotEmpty) {
-      newId = useres.last.id! + 1;
-    }
-
-    user newUser = user(
-      id: newId,
-      email: email.text,
-      password: pass.text,
-      username: usernaem.text,
-      phone: phone.text,
-    );
-
-    user? createdUser = await userDatabase.create(newUser);
-
-    if (createdUser != null) {
-      return ShowDialog(
-        bodyText: AppLocalizations.of(context)!.regesteraitinDone,
-        context: context,
-      );
-    } else {
-      return ShowDialog(
-        bodyText: AppLocalizations.of(context)!.regesteraitinfailed,
-        context: context,
-      );
-    }
   }
 }
