@@ -15,18 +15,20 @@ class testPage extends StatefulWidget {
 }
 
 class _testPageState extends State<testPage> {
-  final user User ;
-   bool switchVal = getbiometric_Enabled()  =='true'?true:false ;
+  final user _User ;
+  late bool switchVal ;
 
     setSwitchVal() async {
-      bool switchVal1 = await getbiometric_Enabled() =='false'?false:true ;
+      await biometric_Enabled(false,_User);
+      bool? switchVal1 = await getbiometric_Enabled(_User);
+
       print(switchVal1);
       setState(() {
-        switchVal = switchVal1;
+        switchVal = switchVal1??false;
       });
    }
 
-  _testPageState(this.User);
+  _testPageState(this._User);
 
 
   @override
@@ -47,8 +49,8 @@ class _testPageState extends State<testPage> {
       ),
       body: Column(
         children: [
-          Switch(value: switchVal, onChanged:(value) async {
-           await biometric_Enabled(value);
+          Switch(value: switchVal??false, onChanged:(value) async {
+           await biometric_Enabled(value,_User);
             setState(() {
               switchVal = value;
             });

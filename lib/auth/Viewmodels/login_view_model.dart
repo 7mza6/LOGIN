@@ -26,9 +26,10 @@ check(var context, String username,String password) async {
   }
   if (_user?.password == password) {
     storeUser(_user);
-    final isBiometricEnabled = getbiometric_Enabled();
+    final isBiometricEnabled = getbiometric_Enabled(_user);
     if(isBiometricEnabled == null) {
-      biometric_Enabled(false);
+      biometric_Enabled(false,_user);
+
     }
     Navigator.push(
       context,
@@ -56,11 +57,21 @@ LocalAuth(var context, var mounted) async {
 
   final bool didAuthenticate = await BiometricHelper.authenticate();
   if (didAuthenticate) {
+    Map<String,String> userPasswords = await getAllUsers();
 
-    final username = await storage.read(key: 'biometric_user');
+    String username = '7mza';
+    //String username = selecteduser
+    user? _user = await userDatabase.readUser(username);
+    bool? switchVal1 = await getbiometric_Enabled(_user!);
+    if (switchVal1!) {
+      user? _user1 = await userDatabase.readUser(username);
+      if (_user1 != null) {
+      biometricLogin(context,_user1);
+        
+      }
+    }
 
-    biometricLogin(context);
-    return ;
+     
   }
 }
 

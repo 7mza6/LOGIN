@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:users/auth/models/userModel.dart';
 import '../Repositories/usersLocal.dart';
-import '../Views/RegestPage.dart';
+import 'RegisterPage.dart';
 import '../Viewmodels/login_view_model.dart';
 import 'package:users/main.dart';
 

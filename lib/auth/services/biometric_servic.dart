@@ -10,19 +10,18 @@ import 'package:users/auth/models/userModel.dart';
 
 final storage = FlutterSecureStorage();
 
-biometric_Enabled(bool val) async {
-  await storage.write(key: 'biometric_Enabled', value:val == true?'true':'false');
+biometric_Enabled(bool val,user _user) async {
+  if(val){
+  storeUser(_user);
+  return;
+  }
+  if(!val){
+  removeUser(_user);
+  }
+
 }
 
-Future<String?> getbiometric_Enabled() async {
-  return await storage.read(key: 'biometric_Enabled');
-
-}
-
-
-storeUser(user _user) async {
-  await storage.write(key: 'biometric_user', value: _user!.username);
-  await storage.write(key: 'biometric_password', value: _user!.password);
+Future<bool> getbiometric_Enabled(user _user) async {
 
   String? jsonData = await storage.read(key: 'userPasswords');
   Map<String, String> userPasswords;
@@ -33,37 +32,74 @@ storeUser(user _user) async {
   }else
   userPasswords = Map<String, String>.from(jsonDecode(jsonData));
 
+  if(userPasswords.containsKey(_user.username))
+  return true;
+  else
+  return false;
+}
 
+storeUser(user _user) async {
+  String? jsonData = await storage.read(key: 'userPasswords');
+  Map<String, String> userPasswords;
+  if (jsonData == null) {
+    print("No credentials found.");
+     userPasswords = {
+    };
+  }else
+  userPasswords = Map<String, String>.from(jsonDecode(jsonData));
 
+  // Add the new user credentials
+  userPasswords[_user.username!] = _user.password!;
+  
   jsonData = jsonEncode(userPasswords);
   await storage.write(key: 'userPasswords', value: jsonData);
 }
 
-biometricLogin(BuildContext context ) async {
-  final isBiometricEnabled = await getbiometric_Enabled();
-  String? username = await storage.read(key: 'biometric_user');
-  String? password = await storage.read(key: 'biometric_password');
 
-  if (username == null || isBiometricEnabled == 'false' || isBiometricEnabled == null) {
+removeUser(user _user) async {
+String? jsonData = await storage.read(key: 'userPasswords');
+Map<String, String> userPasswords;
+
+userPasswords = Map<String, String>.from(jsonDecode(jsonData!));
+userPasswords.remove(_user.username);
+jsonData = jsonEncode(userPasswords);
+userPasswords.forEach((username, password) {
+    print(' jnjn          nn                nn       User: $username, Password: $password');
+  });
+await storage.write(key: 'userPasswords', value: jsonData);
+
+}
+
+biometricLogin(BuildContext context,user _user) async {
+  final bool? isBiometricEnabled = await getbiometric_Enabled(_user);
+
+
+  if (_user.username == null || isBiometricEnabled == 'false' || isBiometricEnabled == null) {
     Fluttertoast.showToast(msg: "No user linked to biometrics.");
     return;
   }
-
-
-  final user? _user = await userDatabase.readUser(username);
   if (_user == null) {
     Fluttertoast.showToast(msg: "User not found in database.");
     return;
   }
-  check(context, username!,password!);
+  check(context, _user.username!,_user.password!);
+  
 }
 
 
 void printAllCredentials() async {
   final secureStorage = FlutterSecureStorage();
   Map<String, String> allData = await secureStorage.readAll();
-
+//  print(allData);
   allData.forEach((username, password) {
     print('User: $username, Password: $password');
   });
+}
+
+getAllUsers() async {
+String? jsonData = await storage.read(key: 'userPasswords');
+Map<String, String> userPasswords;
+
+userPasswords = Map<String, String>.from(jsonDecode(jsonData!));
+  return userPasswords;
 }
