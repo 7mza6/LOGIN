@@ -43,6 +43,7 @@ dependencies:
   local_auth: ^2.1.6
   flutter_secure_storage: ^8.1.0
   fluttertoast: ^8.2.5
+  http: ^0.13.6
 
 dev_dependencies:
   flutter_test:

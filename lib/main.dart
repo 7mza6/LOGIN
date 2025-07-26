@@ -8,7 +8,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'auth/models/userModel.dart';
 
 
-void main() {
+
+Future<void> main() async {
+
   runApp( MyApp());
 }
 
