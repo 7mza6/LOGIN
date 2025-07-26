@@ -8,6 +8,7 @@ import 'package:local_auth/local_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:users/auth/Views/test.dart';
 import '../Repositories/usersLocal.dart';
+import '../Views/users_sheet.dart';
 import '../reusable_widgets.dart';
 import '../models/userModel.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -25,12 +26,7 @@ check(var context, String username,String password) async {
 
   }
   if (_user?.password == password) {
-    storeUser(_user);
     final isBiometricEnabled = getbiometric_Enabled(_user);
-    if(isBiometricEnabled == null) {
-      biometric_Enabled(false,_user);
-
-    }
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => (testPage(User: _user))),
@@ -58,22 +54,21 @@ LocalAuth(var context, var mounted) async {
   final bool didAuthenticate = await BiometricHelper.authenticate();
   if (didAuthenticate) {
     Map<String,String> userPasswords = await getAllUsers();
-
-    String username = '7mza';
-    //String username = selecteduser
-    user? _user = await userDatabase.readUser(username);
-    bool? switchVal1 = await getbiometric_Enabled(_user!);
-    if (switchVal1!) {
-      user? _user1 = await userDatabase.readUser(username);
-      if (_user1 != null) {
-      biometricLogin(context,_user1);
+    UsersSheet usersSheet = UsersSheet(userPasswords);
+    String? selecteduser = await usersSheet.showUserSelectionSheet(context);
+   
+    String username = selecteduser;
+    user? _user = await userDatabase.readUser(selecteduser);
+    bool? switchVal = await getbiometric_Enabled(_user!);
+    if (switchVal!) {
+      biometricLogin(context,_user!);
         
       }
-    }
+  }
 
      
-  }
 }
+
 
 
 Future<bool> auth() async {

@@ -19,7 +19,6 @@ class RegestPage extends StatefulWidget {
 class _RegestPageState extends State<RegestPage> {
   UserDatabase userDatabase = UserDatabase.instance;
   final RegisterViewModel _viewModel = RegisterViewModel();
-
   TextEditingController usernaem = TextEditingController();
   TextEditingController pass = TextEditingController();
   TextEditingController email = TextEditingController();

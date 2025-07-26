@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:users/auth/models/userModel.dart';
+import '../Repositories/api.dart';
 import '../Repositories/usersLocal.dart';
 import 'RegisterPage.dart';
 import '../Viewmodels/login_view_model.dart';
@@ -187,6 +188,7 @@ class _LoginPageState extends State<LoginPage> {
                               child: TextButton(
                                   onPressed:() async {
                                     await LocalAuth(context,mounted);
+                                    
                                   },
                                   child: Container(
                                     child: Icon(

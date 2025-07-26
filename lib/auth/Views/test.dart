@@ -19,9 +19,7 @@ class _testPageState extends State<testPage> {
   late bool switchVal ;
 
     setSwitchVal() async {
-      await biometric_Enabled(false,_User);
       bool? switchVal1 = await getbiometric_Enabled(_User);
-
       print(switchVal1);
       setState(() {
         switchVal = switchVal1??false;
@@ -49,7 +47,7 @@ class _testPageState extends State<testPage> {
       ),
       body: Column(
         children: [
-          Switch(value: switchVal??false, onChanged:(value) async {
+          Switch(value: switchVal, onChanged:(value) async {
            await biometric_Enabled(value,_User);
             setState(() {
               switchVal = value;

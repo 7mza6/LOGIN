@@ -12,12 +12,12 @@ final storage = FlutterSecureStorage();
 
 biometric_Enabled(bool val,user _user) async {
   if(val){
-  storeUser(_user);
-  return;
+  await storeUser(_user);
   }
   if(!val){
-  removeUser(_user);
+  await removeUser(_user);
   }
+
 
 }
 
@@ -32,6 +32,8 @@ Future<bool> getbiometric_Enabled(user _user) async {
   }else
   userPasswords = Map<String, String>.from(jsonDecode(jsonData));
 
+  print(userPasswords);
+
   if(userPasswords.containsKey(_user.username))
   return true;
   else
@@ -41,6 +43,7 @@ Future<bool> getbiometric_Enabled(user _user) async {
 storeUser(user _user) async {
   String? jsonData = await storage.read(key: 'userPasswords');
   Map<String, String> userPasswords;
+
   if (jsonData == null) {
     print("No credentials found.");
      userPasswords = {
@@ -63,9 +66,6 @@ Map<String, String> userPasswords;
 userPasswords = Map<String, String>.from(jsonDecode(jsonData!));
 userPasswords.remove(_user.username);
 jsonData = jsonEncode(userPasswords);
-userPasswords.forEach((username, password) {
-    print(' jnjn          nn                nn       User: $username, Password: $password');
-  });
 await storage.write(key: 'userPasswords', value: jsonData);
 
 }
@@ -86,15 +86,6 @@ biometricLogin(BuildContext context,user _user) async {
   
 }
 
-
-void printAllCredentials() async {
-  final secureStorage = FlutterSecureStorage();
-  Map<String, String> allData = await secureStorage.readAll();
-//  print(allData);
-  allData.forEach((username, password) {
-    print('User: $username, Password: $password');
-  });
-}
 
 getAllUsers() async {
 String? jsonData = await storage.read(key: 'userPasswords');
