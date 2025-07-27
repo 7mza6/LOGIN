@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'auth/Repositories/usersLocal.dart';
 import 'auth/Views/LoginPage.dart';
+import 'firebase_options.dart';
 import 'l10n/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,7 +13,9 @@ import 'package:firebase_database/firebase_database.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp( MyApp());
 }
 
