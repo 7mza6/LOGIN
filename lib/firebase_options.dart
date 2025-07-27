@@ -67,4 +67,13 @@ class DefaultFirebaseOptions {
     storageBucket: 'users-99855.firebasestorage.app',
     iosBundleId: 'com.example.users',
   );
+
+  static const FirebaseOptions web = FirebaseOptions(
+  apiKey: 'AIzaSyB4pzmCz2680k3AIAa095KQuqVhvVqaXis',
+  appId: '1:207198682400:web:YOUR_WEB_APP_ID_HERE', // This will be different for web!
+  messagingSenderId: '207198682400',
+  projectId: 'users-99855',
+  databaseURL: 'https://users-99855-default-rtdb.firebaseio.com',
+  storageBucket: 'users-99855.firebasestorage.app',
+);
 }
