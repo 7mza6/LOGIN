@@ -1,4 +1,5 @@
 import 'package:sqflite/sqflite.dart';
+import 'package:users/auth/Repositories/api.dart';
 import 'package:users/auth/Repositories/userRepository.dart';
 import 'package:users/auth/models/userModel.dart';
 import '../models/UserFields.dart';
@@ -51,6 +52,7 @@ class UserDatabase extends userRepository {
     final db = await instance.database;
     final id = await db.insert(UserFields.tableName, _user.toJson());
     return _user.copy(id: id);
+
   }
 
 

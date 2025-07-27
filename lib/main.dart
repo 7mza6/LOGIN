@@ -5,11 +5,14 @@ import 'l10n/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'auth/models/userModel.dart';
-
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 
 Future<void> main() async {
-
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp( MyApp());
 }
 
@@ -17,6 +20,7 @@ Future<void> main() async {
 
 
 class MyApp extends StatefulWidget {
+
   const MyApp({super.key});
 
   // A static method to easily access the state from anywhere in the widget tree

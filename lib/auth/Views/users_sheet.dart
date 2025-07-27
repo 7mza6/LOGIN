@@ -86,7 +86,7 @@ class UsersSheet {
         UserButton(
           userName: username,
           avatarUrl:
-              'https://api.nekosapi.com/v4/images/random/file?rating=safe',
+              'https://api.nekosapi.com/v4/images/random/file',
           onPressed: () {
             selectedUser = username;
             Navigator.pop(context);
