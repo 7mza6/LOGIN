@@ -4,7 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:fluttertoast/fluttertoast.dart';
 import 'package:users/auth/Viewmodels/login_view_model.dart';
 import 'package:users/auth/models/userModel.dart';
 
@@ -75,11 +75,11 @@ biometricLogin(BuildContext context,user _user) async {
 
 
   if (_user.username == null || isBiometricEnabled == 'false' || isBiometricEnabled == null) {
-    Fluttertoast.showToast(msg: "No user linked to biometrics.");
+   // Fluttertoast.showToast(msg: "No user linked to biometrics.");
     return;
   }
   if (_user == null) {
-    Fluttertoast.showToast(msg: "User not found in database.");
+    //Fluttertoast.showToast(msg: "User not found in database.");
     return;
   }
   check(context, _user.username!,_user.password!);

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:fluttertoast/fluttertoast.dart';
 import 'package:users/auth/Views/test.dart';
 import '../Repositories/usersLocal.dart';
 import '../Views/users_sheet.dart';
@@ -41,13 +41,13 @@ check(var context, String username,String password) async {
 
 LocalAuth(var context, var mounted) async {
   if (!await BiometricHelper.isBiometricSupported()) {
-    Fluttertoast.showToast(msg: "Device does not support biometrics.");
+    //Fluttertoast.showToast(msg: "Device does not support biometrics.");
     return;
   }
 
   final availableBiometrics = await BiometricHelper.getAvailableBiometrics();
   if (availableBiometrics.isEmpty) {
-    Fluttertoast.showToast(msg: "No biometrics found. Please set it up.");
+    //Fluttertoast.showToast(msg: "No biometrics found. Please set it up.");
     return;
   }
 
@@ -114,9 +114,9 @@ class BiometricHelper {
       );
       return didAuthenticate;
     } catch (e) {
-      Fluttertoast.showToast(
-        msg: "Biometric authentication failed. Try again!",
-      );
+      //Fluttertoast.showToast(
+      //  msg: "Biometric authentication failed. Try again!",
+      //);
       return false;
     }
   }

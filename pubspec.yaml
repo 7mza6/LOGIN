@@ -42,7 +42,6 @@ dependencies:
   sqflite: ^2.2.8+4
   local_auth: ^2.1.6
   flutter_secure_storage: ^8.1.0
-  fluttertoast: ^8.2.5
   http: ^0.13.6
   firebase: ^9.0.3
   firebase_auth: ^4.16.0
