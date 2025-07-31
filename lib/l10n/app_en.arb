@@ -79,5 +79,95 @@
   "shortPassword": "Password must be at least 6 characters long",
   "@shortPassword": {
     "description": "Validation: password length"
+  },
+
+  "kNavMenuTitle": "Navigation Menu",
+  "@kNavMenuTitle": {
+    "description": "Title of the navigation menu"
+  },
+
+  "kHomeLabel": "Home",
+  "@kHomeLabel": {
+    "description": "Label for the Home item"
+  },
+
+  "kAboutLabel": "About",
+  "@kAboutLabel": {
+    "description": "Label for the About item"
+  },
+
+  "kSettingsLabel": "Settings",
+  "@kSettingsLabel": {
+    "description": "Label for the Settings item"
+  },
+
+  "kNotificationsLabel": "Notifications",
+  "@kNotificationsLabel": {
+    "description": "Label for the Notifications item"
+  },
+
+  "kDarkModeLabel": "Dark Mode",
+  "@kDarkModeLabel": {
+    "description": "Toggle for Dark Mode"
+  },
+
+  "kLogoutLabel": "Logout",
+  "@kLogoutLabel": {
+    "description": "Logout button label"
+  },
+
+  "kAppHeaderTitle": "AppHeader",
+  "@kAppHeaderTitle": {
+    "description": "Title of the app header"
+  },
+
+  "kDevelopedBy": "Developed By",
+  "@kDevelopedBy": {
+    "description": "Credit for the app development"
+  },
+
+  "kConnectWithUs": "Connect With Us",
+  "@kConnectWithUs": {
+    "description": "Prompt to connect on social media"
+  },
+
+  "kViewLicensesLabel": "View Licenses",
+  "@kViewLicensesLabel": {
+    "description": "Label for viewing licenses"
+  },
+
+  "kFacebookLabel": "Facebook",
+  "@kFacebookLabel": {
+    "description": "Label for Facebook"
+  },
+
+  "kInstagramLabel": "Instagram",
+  "@kInstagramLabel": {
+    "description": "Label for Instagram"
+  },
+
+  "kContactSupportLabel": "Contact Support",
+  "@kContactSupportLabel": {
+    "description": "Label for contacting support"
+  },
+
+  "kSelectAccountLabel": "Select Your Account",
+  "@kSelectAccountLabel": {
+    "description": "Prompt to select user account"
+  },
+
+  "kBiometricAuthPrompt": "Use biometric authentication to login",
+  "@kBiometricAuthPrompt": {
+    "description": "Prompt for biometric login"
+  },
+
+  "kBiometricReason": "Please authenticate to proceed",
+  "@kBiometricReason": {
+    "description": "Reason for biometric prompt"
+  },
+  "welcomeback": "Welcome Back",
+  "@welcomeback": {
+    "description": "Welcome Back Massage"
   }
+ 
 }

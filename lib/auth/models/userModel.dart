@@ -11,35 +11,50 @@ final String? phone;
 
 user({@required this.id, @required this.email, @required this.password,@required this.username,@required this.phone});
 
-factory user.fromJson(Map<String, Object?> json) => user(
-    id: json[UserFields.id] as int?,
-    password: json[UserFields.password] as String?,
-    username: json[UserFields.username] as String?,
-    email: json[UserFields.email] as String?,
-    phone : json[UserFields.phone] as String?);
-
-
-
-Map<String,dynamic> toJson() => {
-  UserFields.id : id,
-  UserFields.email : email,
-  UserFields.password : password,
-  UserFields.username : username,
-  UserFields.phone : phone,
-};
-user copy({
-  int? id,
-  String? password,
-  String? username,
-  String? email,
-  String? phone,
-}) =>
-    user(
-      id: id ?? this.id,
-      password: password ?? this.password,
-      username: username ?? this.username,
-      email: email ?? this.email,
-      phone: phone ?? this.phone,
+ factory user.fromJson(Map<String, dynamic> json, String id) {
+    return user(
+      id: int.parse(id),
+      email: json['email'] ?? '',
+      username: json['username'] ?? '',
+      password: json['password'] ?? '',
+      phone: json['phone'] ?? '',
     );
+  }
+
+  factory user.fromMap(Map<dynamic, dynamic> map) {
+    return user(
+      id: map['id'] as int,
+      email: map['email'] as String,
+      password: map['password'] as String,
+      phone: map['phone'] as String,
+      username: map['username'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'email': email,
+      'username': username,
+      'password': password,
+      'phone': phone,
+    };
+  }
 }
 
+
+class CurrentUser {
+
+  static user? currentUser;
+  static user? getcurrentUser() => currentUser;
+  static setcurrentUser(user? user) {
+    currentUser = user;
+    if (user != null) {
+      currentUser = user;
+      print('currentUser: ${currentUser?.email}');
+    }
+  }
+  static void clearCurrentUser() {
+    currentUser = null;
+  }
+}

@@ -51,7 +51,7 @@ class UserDatabase extends userRepository {
   Future<user> create(user _user) async {
     final db = await instance.database;
     final id = await db.insert(UserFields.tableName, _user.toJson());
-    return _user.copy(id: id);
+    return user.fromJson(_user.toJson(),id.toString());
 
   }
 
@@ -59,7 +59,7 @@ class UserDatabase extends userRepository {
   Future<List<user>> readAll() async {
     final db = await instance.database;
     final result = await db.query(UserFields.tableName,);
-    return result.map((json) => user.fromJson(json)).toList();
+    return result.map((json) => user.fromJson(json,json[UserFields.id].toString())).toList();
   }
 
   Future<int> delete(int id) async {
@@ -98,7 +98,7 @@ class UserDatabase extends userRepository {
     );
 
     if (maps.isNotEmpty) {
-      return user.fromJson(maps.first);
+      return user.fromJson(maps.first, maps.first[UserFields.id].toString());
     } else {
       throw Exception('ID $id not found');
     }
@@ -115,7 +115,7 @@ class UserDatabase extends userRepository {
     );
 
     if (maps.isNotEmpty) {
-      return user.fromJson(maps.first);
+      return user.fromJson(maps.first, maps.first[UserFields.id].toString());
     } else {
       return null;
     }
@@ -129,5 +129,15 @@ class UserDatabase extends userRepository {
         'ALTER TABLE ${UserFields.tableName} ADD COLUMN ${UserFields.phone} Text',
       );
     }
+  }
+  @override
+  Future<int> updatePassword(user _user, String newPassword) async {
+    final db = await instance.database;
+    return db.update(
+      UserFields.tableName,
+      {UserFields.password: newPassword},
+      where: '${UserFields.id} = ?',
+      whereArgs: [_user.id],
+    );
   }
 }

@@ -18,10 +18,9 @@ biometric_Enabled(bool val,user _user) async {
   await removeUser(_user);
   }
 
-
 }
 
-Future<bool> getbiometric_Enabled(user _user) async {
+Future<bool?> getbiometric_Enabled(user _user) async {
 
   String? jsonData = await storage.read(key: 'userPasswords');
   Map<String, String> userPasswords;

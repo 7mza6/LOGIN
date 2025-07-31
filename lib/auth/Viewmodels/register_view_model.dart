@@ -1,12 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../Repositories/user_api.dart';
 import '../models/userModel.dart';
-import '../Repositories/usersLocal.dart';
-import '../reusable_widgets.dart';
+import '../Views/reusable_widgets.dart';
+
 
 class RegisterViewModel {
-  final UserDatabase _userDatabase = UserDatabase.instance;
+  final UserApi _userDatabase = UserApi();
 
   Future<List<user>> getAllUsers() async {
     return await _userDatabase.readAll();
@@ -64,15 +65,15 @@ class RegisterViewModel {
       phone: phone,
     );
 
-    user? createdUser = await _userDatabase.create(newUser);
+    user? createdUser = await _userDatabase.create(newUser);  
 
     if (createdUser != null) {
-      ShowDialog(
+      showCustomDialog(
         bodyText: AppLocalizations.of(context)!.regesteraitinDone,
         context: context,
       );
     } else {
-      ShowDialog(
+      showCustomDialog(
         bodyText: AppLocalizations.of(context)!.regesteraitinfailed,
         context: context,
       );
